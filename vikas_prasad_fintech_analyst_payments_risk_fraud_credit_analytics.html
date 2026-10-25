@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vikas Prasad | FinTech Analyst — Payments Risk, Fraud & Credit Analytics</title>
+<meta name="description" content="Digital Portfolio of Vikas Prasad — FinTech Analyst specializing in payments-risk, fraud detection, BNPL credit-risk, AML-monitoring and portfolio-risk projects in Python, SQL and Power BI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Colorful Light Theme Variables */
+    --bg: #F5F7FA;
+    --panel: rgba(255, 255, 255, 0.72);
+    --panel-solid: #FFFFFF;
+    --ink: #1B2026;
+    --muted: #505862;
+    --amber: #E85D04; /* Vibrant Orange */
+    --teal: #0077B6; /* Vibrant Blue */
+    --purple: #7209B7; /* FinTech / ML Accent */
+    --emerald: #0D9488; /* Risk / Verification Accent */
+    --rule: rgba(27, 32, 38, 0.11);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    /* Vibrant, animated colorful gradient background */
+    background: linear-gradient(-45deg, #ffb3ba, #ffdfba, #ffffba, #baffc9, #bae1ff);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;}
+  a{color:var(--teal);text-decoration:none;transition:color .2s;}
+  a:hover{color:var(--purple);}
+  ::selection{background:var(--amber);color:#fff;}
+ 
+  /* ---------- background data-flow diagram ---------- */
+  .flow-bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:0.4;}
+  .flow-line{stroke:rgba(0,119,182,0.15);stroke-width:2;fill:none;}
+  .flow-pulse{stroke:var(--purple);stroke-width:2.5;fill:none;stroke-dasharray:6 340;animation:flow 7s linear infinite;}
+  .flow-pulse.p2{animation-duration:9s;animation-delay:1.2s;stroke:var(--amber);opacity:.8;}
+  .flow-pulse.p3{animation-duration:6s;animation-delay:2.4s;stroke:var(--teal);}
+  .flow-pulse.p4{animation-duration:8s;animation-delay:.6s;stroke:var(--amber);opacity:.7;}
+  @keyframes flow{from{stroke-dashoffset:900;}to{stroke-dashoffset:0;}}
+  .flow-node{fill:var(--panel-solid);stroke:rgba(27,32,38,0.25);stroke-width:1.5;}
+  .flow-label{font-family:'IBM Plex Mono',monospace;font-size:12px;fill:var(--ink);font-weight:500;}
+ 
+  /* ---------- background chart/table watermarks ---------- */
+  .bg-charts{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;}
+  .bg-charts svg{position:absolute;overflow:visible;}
+  .chart-line{stroke:var(--teal);stroke-width:2.5;fill:none;opacity:0.3;}
+  .chart-line.fill{fill:url(#lineFade);stroke:none;opacity:0.2;}
+  .chart-axis{stroke:rgba(27,32,38,0.15);stroke-width:1.5;}
+  .chart-bar{fill:var(--amber);opacity:0.25;}
+  .chart-bar.b2{fill:var(--purple);opacity:0.25;}
+  .chart-dot{fill:var(--teal);opacity:0.4;}
+  .chart-dot.d2{fill:var(--amber);opacity:0.4;}
+  .chart-label{font-family:'IBM Plex Mono',monospace;font-size:11px;fill:var(--ink);opacity:0.5;}
+  .bg-heat{position:absolute;top:8%;right:6%;display:grid;grid-template-columns:repeat(6,16px);grid-gap:3px;opacity:0.3;}
+  .bg-heat div{width:16px;height:16px;border-radius:2px;}
+ 
+  section, header, footer{position:relative;z-index:2;}
+ 
+  /* ---------- header / nav ---------- */
+  .topbar{
+    position:fixed;top:0;left:0;width:100%;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 6vw;
+    background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.45);
+  }
+  .brand{font-family:'IBM Plex Mono',monospace;font-size:0.9rem;color:var(--ink);letter-spacing:0.02em;display:flex;align-items:center;gap:10px;}
+  .brand b{color:var(--purple);font-weight:600;}
+  .brand-badge{font-size:0.72rem;background:rgba(114,9,183,0.1);color:var(--purple);padding:3px 9px;border-radius:12px;border:1px solid rgba(114,9,183,0.25);font-weight:600;}
+  .topnav{display:flex;gap:24px;font-family:'IBM Plex Mono',monospace;font-size:0.84rem;align-items:center;}
+  .topnav a{color:var(--ink);font-weight:500;}
+  .topnav a:hover{color:var(--amber);}
+  .nav-cta{background:var(--purple);color:#fff !important;padding:7px 14px;border-radius:6px;font-weight:600 !important;transition:background .2s;}
+  .nav-cta:hover{background:#5a0791;}
+ 
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    padding:130px 6vw 70px;
+    gap:48px;flex-wrap:wrap;max-width:1320px;margin:0 auto;
+  }
+  .hero-left{
+    flex:1 1 480px;max-width:660px;
+    background:rgba(255,255,255,0.55);padding:42px;border-radius:14px;
+    backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.75);
+    box-shadow:0 12px 42px rgba(0,0,0,0.06);
+  }
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.86rem;color:var(--purple);margin-bottom:14px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .loc-pill{color:var(--muted);font-weight:500;}
+  .hero-title{font-size:clamp(2.3rem,4.8vw,3.85rem);line-height:1.12;margin-bottom:18px;color:#111;}
+  .hero-sub{font-size:1.08rem;color:var(--muted);max-width:580px;margin-bottom:24px;}
+  
+  .domain-tags { display:flex; gap:10px; margin-bottom:28px; flex-wrap:wrap; }
+  .d-tag { font-family:'IBM Plex Mono',monospace; font-size:0.76rem; padding:7px 13px; border-radius:20px; font-weight:600;}
+  .d-tag.da { background:rgba(0,119,182,0.11); color:var(--teal); border:1px solid rgba(0,119,182,0.32); }
+  .d-tag.ds { background:rgba(114,9,183,0.11); color:var(--purple); border:1px solid rgba(114,9,183,0.32); }
+  .d-tag.ft { background:rgba(232,93,4,0.11); color:var(--amber); border:1px solid rgba(232,93,4,0.32); }
+
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:0.84rem;
+    border:1.5px solid var(--teal);color:var(--teal);
+    padding:12px 20px;border-radius:7px;background:rgba(255,255,255,0.6);cursor:pointer;
+    transition:all .22s ease;font-weight:600;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn:hover{background:var(--teal);color:#fff;transform:translateY(-1px);}
+  .btn.primary{background:var(--purple);border-color:var(--purple);color:#fff;}
+  .btn.primary:hover{background:#5a0791;border-color:#5a0791;color:#fff;}
+  .contact-mini{display:flex;gap:16px;flex-wrap:wrap;margin-top:26px;padding-top:20px;border-top:1px dashed var(--rule);font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--ink);font-weight:500;}
+  .contact-mini a{display:inline-flex;align-items:center;gap:5px;}
+ 
+  /* ---------- terminal / query console (Light Mac Style) ---------- */
+  .console{
+    flex:1 1 420px;max-width:520px;
+    background:rgba(255,255,255,0.88);border:1px solid rgba(255,255,255,1);border-radius:14px;
+    backdrop-filter:blur(12px);
+    box-shadow:0 20px 60px rgba(0,0,0,0.13);overflow:hidden;
+  }
+  .console-head{
+    background:#E4E5E8;padding:12px 16px;display:flex;align-items:center;gap:8px;
+    border-bottom:1px solid var(--rule);
+  }
+  .dot{width:12px;height:12px;border-radius:50%;}
+  .dot.r{background:#e5675f;}.dot.y{background:#e8b445;}.dot.g{background:#59b36a;}
+  .console-title{margin-left:8px;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--muted);font-weight:500;}
+  .console-body{padding:24px;font-family:'IBM Plex Mono',monospace;font-size:0.86rem;min-height:290px;color:var(--ink);line-height:1.65;}
+  .q-line{color:var(--purple);font-weight:600;}
+  .q-comment{color:var(--muted);font-style:italic;}
+  .q-result{color:var(--ink);}
+  .q-amber{color:var(--amber);font-weight:600;}
+  .caret{display:inline-block;width:8px;height:16px;background:var(--purple);vertical-align:middle;animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- KPI Metrics Banner ---------- */
+  .kpi-strip{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;
+    max-width:1240px;margin:0 auto;padding:0 6vw 30px;position:relative;z-index:2;
+  }
+  .kpi-card{
+    background:rgba(255,255,255,0.72);backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.9);border-radius:12px;padding:22px 24px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.05);border-top:4px solid var(--purple);
+  }
+  .kpi-card.k-teal{border-top-color:var(--teal);}
+  .kpi-card.k-amber{border-top-color:var(--amber);}
+  .kpi-val{font-family:'Fraunces',serif;font-size:2rem;font-weight:700;color:#111;line-height:1.1;margin-bottom:6px;}
+  .kpi-lbl{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--muted);font-weight:500;}
+ 
+  /* ---------- section framing ---------- */
+  .wrap{padding:95px 6vw;max-width:1240px;margin:0 auto;}
+  .wrap.tight{padding-top:60px;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
+    border-bottom:2px solid var(--rule);padding-bottom:20px;margin-bottom:42px;flex-wrap:wrap;}
+  .section-head h2{font-size:2.15rem;color:#111;}
+  .section-index{font-family:'IBM Plex Mono',monospace;color:var(--teal);font-weight:600;font-size:0.88rem;}
+ 
+  .summary-text{
+    font-size:1.25rem;line-height:1.75;color:var(--ink);max-width:980px;
+    font-family:'Fraunces',serif;font-weight:400;background:rgba(255,255,255,0.65);
+    padding:34px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    border:1px solid rgba(255,255,255,0.85);
+  }
+  .summary-text b{color:var(--purple);font-weight:700;}
+
+  /* ---------- Interactive Pitch / Architecture Walkthrough ---------- */
+  .video-panel{
+    max-width:980px;background:var(--panel-solid);border:1px solid var(--rule);border-radius:14px;
+    box-shadow:0 18px 48px rgba(0,0,0,0.09);overflow:hidden;
+  }
+  .video-panel .console-head{background:#E4E5E8;justify-content:space-between;}
+  .pitch-stage{
+    padding:32px;background:linear-gradient(135deg, rgba(245,247,250,0.95), rgba(255,255,255,0.98));
+  }
+  .pitch-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+  .pitch-tab{
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:600;
+    padding:9px 16px;border-radius:8px;border:1px solid var(--rule);
+    background:#fff;color:var(--muted);cursor:pointer;transition:all .2s;
+  }
+  .pitch-tab.active{background:var(--purple);color:#fff;border-color:var(--purple);box-shadow:0 4px 14px rgba(114,9,183,0.22);}
+  .pitch-tab:hover:not(.active){border-color:var(--purple);color:var(--purple);}
+  .pitch-screen{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:26px;align-items:center;
+    background:#F8FAFC;border:1px solid var(--rule);border-radius:12px;padding:26px;
+  }
+  .pitch-screen h3{font-size:1.35rem;color:#111;margin-bottom:10px;font-family:'IBM Plex Sans',sans-serif;}
+  .pitch-screen p{color:var(--muted);font-size:0.98rem;margin-bottom:16px;}
+  .pitch-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-family:'IBM Plex Mono',monospace;}
+  .p-metric{background:#fff;padding:12px 14px;border-radius:8px;border:1px solid var(--rule);}
+  .p-metric b{display:block;font-size:1.1rem;color:var(--purple);}
+  .p-metric span{font-size:0.75rem;color:var(--muted);}
+  .pitch-code{
+    background:#1B2026;color:#E2E8F0;padding:20px;border-radius:10px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;line-height:1.6;overflow-x:auto;
+  }
+  .pitch-code .c-kw{color:#C084FC;font-weight:600;}
+  .pitch-code .c-fn{color:#38BDF8;}
+  .pitch-code .c-cm{color:#94A3B8;font-style:italic;}
+  .pitch-code .c-num{color:#FB923C;}
+ 
+  /* ---------- skills terminal ---------- */
+  .skills-term{
+    background:var(--panel-solid);border:1px solid rgba(255,255,255,0.6);border-radius:14px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.9rem;overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+  }
+  .skills-term .console-head{background:#E4E5E8;}
+  .skills-body{padding:30px;}
+  .skill-row{margin-bottom:15px;display:flex;gap:16px;flex-wrap:wrap;border-bottom:1px dashed var(--rule);padding-bottom:13px;}
+  .skill-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .skill-key{color:var(--purple);min-width:255px;flex-shrink:0;font-weight:600;}
+  .skill-val{color:var(--ink);flex:1;}
+ 
+  /* ---------- projects ---------- */
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+  .filter-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:600;
+    padding:8px 16px;border-radius:20px;border:1px solid var(--rule);
+    background:rgba(255,255,255,0.75);color:var(--ink);cursor:pointer;transition:all .2s;
+  }
+  .filter-btn.active, .filter-btn:hover{background:var(--teal);color:#fff;border-color:var(--teal);}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:26px;}
+  .card{
+    background:rgba(255,255,255,0.82);backdrop-filter:blur(12px);border:1px solid #fff;border-radius:14px;
+    padding:30px;display:flex;flex-direction:column;border-left:5px solid var(--purple);
+    box-shadow:0 10px 30px rgba(0,0,0,0.06);transition:transform 0.22s, box-shadow 0.22s;
+  }
+  .card.featured-wide{grid-column:1 / -1;border-left-color:var(--amber);}
+  .card:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(0,0,0,0.1);}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;}
+  .card h3{font-size:1.32rem;color:#111;font-family:'IBM Plex Sans',sans-serif;font-weight:600;line-height:1.3;}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:0.73rem;color:var(--teal);
+    border:1px solid rgba(0,119,182,0.3);padding:3px 10px;border-radius:20px;background:rgba(0,119,182,0.08);font-weight:600;}
+  .tag.t-purple{color:var(--purple);border-color:rgba(114,9,183,0.3);background:rgba(114,9,183,0.08);}
+  .tag.t-amber{color:var(--amber);border-color:rgba(232,93,4,0.3);background:rgba(232,93,4,0.08);}
+  .card ul{margin-left:18px;color:var(--muted);flex:1;}
+  .card li{margin-bottom:9px;font-size:0.95rem;}
+  .card li b{color:var(--ink);font-weight:600;}
+  .card-limit{
+    margin-top:12px;padding:10px 13px;border-radius:8px;
+    background:rgba(232,93,4,0.07);border-left:3px solid var(--amber);
+    font-size:0.84rem;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;
+  }
+  .card-limit b{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--amber);text-transform:uppercase;letter-spacing:0.03em;}
+  .card-foot{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .link-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--purple);border:1px solid rgba(114,9,183,0.35);
+    background:rgba(114,9,183,0.06);padding:8px 14px;border-radius:6px;cursor:pointer;transition:all .2s;font-weight:600;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .link-btn:hover{background:var(--purple);color:#fff;}
+  .gh-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--ink);border:1px solid rgba(27,32,38,0.25);
+    background:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;transition:all .2s;font-weight:600;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .gh-btn:hover{background:#1B2026;color:#fff;border-color:#1B2026;}
+ 
+  /* ---------- timeline ---------- */
+  .timeline{max-width:860px;background:rgba(255,255,255,0.62);padding:40px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.05);border:1px solid rgba(255,255,255,0.85);}
+  .t-item{padding-left:32px;border-left:2px solid var(--teal);padding-bottom:36px;position:relative;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{content:'';position:absolute;left:-8px;top:3px;width:14px;height:14px;border-radius:50%;
+    background:#fff;border:3px solid var(--teal);}
+  .t-date{font-family:'IBM Plex Mono',monospace;color:var(--amber);font-size:0.88rem;margin-bottom:5px;font-weight:600;}
+  .t-item h3{font-size:1.22rem;margin-bottom:6px;font-family:'IBM Plex Sans',sans-serif;font-weight:600;color:#111;}
+  .t-item p{color:var(--muted);font-size:0.98rem;max-width:660px;}
+ 
+  .certs-head{font-family:'IBM Plex Mono',monospace;font-size:0.85rem;color:var(--purple);font-weight:600;margin-top:44px;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.04em;}
+  .certs{display:flex;flex-wrap:wrap;gap:12px;}
+  .cert-chip{font-family:'IBM Plex Mono',monospace;font-size:0.83rem;color:var(--ink);
+    border:1px solid var(--rule);padding:10px 16px;border-radius:20px;background:#fff;font-weight:500;box-shadow:0 4px 10px rgba(0,0,0,0.03);}
+ 
+  footer{padding:80px 6vw 50px;text-align:center;border-top:2px solid var(--rule);background:rgba(255,255,255,0.38);}
+  footer h2{font-size:2.1rem;margin-bottom:14px;color:#111;}
+  footer p{color:var(--muted);margin-bottom:26px;font-size:1.05rem;max-width:600px;margin-left:auto;margin-right:auto;}
+  .footer-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:0.92rem;font-weight:600;}
+  .foot-note{margin-top:38px;color:var(--muted);font-size:0.82rem;font-family:'IBM Plex Mono',monospace;}
+ 
+  /* ---------- assistant bubble ---------- */
+  .ask-bubble{
+    position:fixed;bottom:28px;right:28px;z-index:60;
+    display:flex;align-items:center;gap:12px;background:var(--panel-solid);
+    border:2px solid var(--purple);padding:12px 20px 12px 14px;border-radius:30px;cursor:pointer;
+    box-shadow:0 12px 30px rgba(114,9,183,0.25);transition:transform .2s;
+  }
+  .ask-bubble:hover{transform:scale(1.05);}
+  .ask-icon{width:30px;height:30px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ask-icon svg{width:16px;height:16px;}
+  .ask-bubble span{font-family:'IBM Plex Mono',monospace;font-size:0.88rem;color:var(--ink);font-weight:600;}
+ 
+  /* ---------- modal ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(27,32,38,0.45);backdrop-filter:blur(8px);
+    z-index:100;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;padding:16px;}
+  .modal-overlay.active{display:flex;opacity:1;}
+  .modal-box{width:100%;max-width:780px;background:var(--panel-solid);border:1px solid rgba(0,0,0,0.12);
+    border-radius:14px;box-shadow:0 24px 64px rgba(0,0,0,0.22);overflow:hidden;display:flex;flex-direction:column;
+    transform:scale(.96);transition:transform .25s;}
+  .modal-overlay.active .modal-box{transform:scale(1);}
+  .modal-head{background:#E4E5E8;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--rule);}
+  .modal-head h4{font-family:'IBM Plex Mono',monospace;font-size:0.88rem;color:var(--ink);font-weight:600;}
+  .modal-close{background:none;border:none;color:var(--muted);font-size:1.6rem;cursor:pointer;line-height:1;font-weight:600;}
+  .modal-close:hover{color:#e5675f;}
+  .modal-body{padding:26px;height:390px;overflow-y:auto;font-family:'IBM Plex Mono',monospace;font-size:0.88rem;color:var(--ink);line-height:1.7;}
+  .m-cmd{color:var(--purple);display:block;font-weight:600;}
+  .m-res{color:var(--ink);display:block;margin-bottom:14px;}
+  .m-comment{color:var(--muted);font-style:italic;display:block;}
+  .chat-controls{background:#F8F9FA;padding:16px 20px;border-top:1px solid var(--rule);display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  .chat-btn{background:#fff;border:1px solid var(--purple);color:var(--purple);
+    padding:8px 14px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 4px 10px rgba(114,9,183,0.08);}
+  .chat-btn:hover{background:var(--purple);color:#fff;}
+  .chat-user{color:var(--teal);display:block;margin-bottom:4px;font-weight:600;}
+  .chat-bot{color:var(--ink);display:block;margin-bottom:18px;border-left:3px solid var(--purple);padding-left:12px;background:rgba(114,9,183,0.05);padding:10px 12px;border-radius:0 6px 6px 0;}
+ 
+  @media (max-width:820px){
+    .pitch-screen{grid-template-columns:1fr;}
+  }
+  @media (max-width:680px){
+    .topnav{display:none;}
+    .hero{padding-top:110px;}
+    .wrap{padding:65px 6vw;}
+    .projects-grid{grid-template-columns:1fr;}
+    .skill-key{min-width:100%;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .flow-pulse{animation:none;}
+    .caret{animation:none;}
+    body {animation:none; background: #c2e9fb;}
+  }
+</style>
+</head>
+<body>
+ 
+<svg class="flow-bg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <path d="M -50 700 L 250 700 L 250 500 L 550 500" class="flow-line"/>
+  <path d="M -50 700 L 250 700 L 250 500 L 550 500" class="flow-pulse"/>
+  <path d="M 550 500 L 850 500 L 850 260 L 1150 260" class="flow-line"/>
+  <path d="M 550 500 L 850 500 L 850 260 L 1150 260" class="flow-pulse p2"/>
+  <path d="M 1150 260 L 1400 260 L 1400 80 L 1660 80" class="flow-line"/>
+  <path d="M 1150 260 L 1400 260 L 1400 80 L 1660 80" class="flow-pulse p3"/>
+  <path d="M 550 500 L 550 780 L 900 780 L 900 860" class="flow-line"/>
+  <path d="M 550 500 L 550 780 L 900 780 L 900 860" class="flow-pulse p4"/>
+  <circle cx="250" cy="500" r="6" class="flow-node"/>
+  <circle cx="550" cy="500" r="8" class="flow-node"/>
+  <circle cx="850" cy="260" r="6" class="flow-node"/>
+  <circle cx="1150" cy="260" r="8" class="flow-node"/>
+  <text x="485" y="475" class="flow-label">payment_ledgers</text>
+  <text x="790" y="235" class="flow-label">SQL_fraud_rules</text>
+  <text x="1085" y="235" class="flow-label">BNPL_credit_models</text>
+  <text x="850" y="815" class="flow-label">PowerBI_risk_views</text>
+</svg>
+ 
+<div class="bg-charts" aria-hidden="true">
+  <!-- line chart, upper-left -->
+  <svg width="480" height="260" style="top:12%;left:2%;" viewBox="0 0 480 260">
+    <defs>
+      <linearGradient id="lineFade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0077B6" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#0077B6" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <line x1="20" y1="220" x2="460" y2="220" class="chart-axis"/>
+    <line x1="20" y1="20" x2="20" y2="220" class="chart-axis"/>
+    <path d="M20,180 L80,150 L140,165 L200,110 L260,130 L320,70 L380,90 L440,40 L440,220 L20,220 Z" class="chart-line fill"/>
+    <path d="M20,180 L80,150 L140,165 L200,110 L260,130 L320,70 L380,90 L440,40" class="chart-line"/>
+    <text x="20" y="240" class="chart-label">roc_auc_curve.py</text>
+  </svg>
+ 
+  <!-- bar chart, right side -->
+  <svg width="360" height="300" style="top:36%;right:1%;" viewBox="0 0 360 300">
+    <line x1="20" y1="260" x2="340" y2="260" class="chart-axis"/>
+    <rect x="30"  y="170" width="34" height="90" class="chart-bar"/>
+    <rect x="80"  y="120" width="34" height="140" class="chart-bar b2"/>
+    <rect x="130" y="200" width="34" height="60" class="chart-bar"/>
+    <rect x="180" y="90"  width="34" height="170" class="chart-bar b2"/>
+    <rect x="230" y="150" width="34" height="110" class="chart-bar"/>
+    <rect x="280" y="60"  width="34" height="200" class="chart-bar b2"/>
+    <text x="20" y="282" class="chart-label">bnpl_tier_pricing.sql</text>
+  </svg>
+ 
+  <!-- scatter, lower-left -->
+  <svg width="420" height="280" style="bottom:6%;left:3%;" viewBox="0 0 420 280">
+    <line x1="20" y1="240" x2="400" y2="240" class="chart-axis"/>
+    <line x1="20" y1="20" x2="20" y2="240" class="chart-axis"/>
+    <circle cx="60"  cy="200" r="5" class="chart-dot"/>
+    <circle cx="90"  cy="170" r="4" class="chart-dot d2"/>
+    <circle cx="120" cy="190" r="5" class="chart-dot"/>
+    <circle cx="150" cy="140" r="4" class="chart-dot"/>
+    <circle cx="180" cy="160" r="5" class="chart-dot d2"/>
+    <circle cx="210" cy="110" r="4" class="chart-dot"/>
+    <circle cx="240" cy="130" r="5" class="chart-dot d2"/>
+    <circle cx="270" cy="90"  r="4" class="chart-dot"/>
+    <circle cx="300" cy="100" r="5" class="chart-dot"/>
+    <circle cx="330" cy="60"  r="4" class="chart-dot d2"/>
+    <circle cx="360" cy="75"  r="5" class="chart-dot"/>
+    <text x="20" y="262" class="chart-label">isolation_forest_anomalies</text>
+  </svg>
+ 
+  <!-- correlation heatmap, upper-right -->
+  <div class="bg-heat">
+    <div style="background:#0077B6;opacity:.8"></div><div style="background:#0077B6;opacity:.4"></div><div style="background:#E85D04;opacity:.3"></div><div style="background:#0077B6;opacity:.5"></div><div style="background:#7209B7;opacity:.4"></div><div style="background:#0077B6;opacity:.6"></div>
+    <div style="background:#0077B6;opacity:.4"></div><div style="background:#0077B6;opacity:.8"></div><div style="background:#E85D04;opacity:.5"></div><div style="background:#0077B6;opacity:.3"></div><div style="background:#7209B7;opacity:.5"></div><div style="background:#0077B6;opacity:.4"></div>
+    <div style="background:#E85D04;opacity:.3"></div><div style="background:#E85D04;opacity:.5"></div><div style="background:#0077B6;opacity:.8"></div><div style="background:#7209B7;opacity:.4"></div><div style="background:#0077B6;opacity:.4"></div><div style="background:#E85D04;opacity:.3"></div>
+    <div style="background:#0077B6;opacity:.5"></div><div style="background:#0077B6;opacity:.3"></div><div style="background:#7209B7;opacity:.4"></div><div style="background:#0077B6;opacity:.8"></div><div style="background:#7209B7;opacity:.5"></div><div style="background:#0077B6;opacity:.6"></div>
+  </div>
+</div>
+ 
+<div class="topbar">
+  <div class="brand">
+    <b>Vikas Prasad</b> / FinTech Analyst
+    <span class="brand-badge">BITSoM '26</span>
+  </div>
+  <nav class="topnav">
+    <a href="#intro">Walkthrough</a>
+    <a href="#overview">Summary</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Education</a>
+    <a href="https://github.com/vikasprsd7" target="_blank" rel="noopener" class="nav-cta">GitHub ↗</a>
+  </nav>
+</div>
+ 
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span>FinTech Risk, Fraud & Credit Analytics</span>
+      <span class="loc-pill">· Bhagalpur, Bihar</span>
+    </div>
+    <h1 class="hero-title">Turning model trade-offs into pricing, approval & review decisions.</h1>
+    <p class="hero-sub">FinTech analyst targeting payments-risk, fraud and credit-analytics roles. I build fraud-detection, BNPL credit-risk, AML-monitoring and portfolio-risk systems in Python, SQL and Power BI—balancing fraud caught against customer friction.</p>
+    
+    <div class="domain-tags">
+      <div class="d-tag ft">● Payments & Fraud Risk</div>
+      <div class="d-tag ds">● Credit & AML Analytics (Python, ML)</div>
+      <div class="d-tag da">● Financial BI (SQL, Power BI, DAX)</div>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects">Explore 5 FinTech Projects</a>
+      <a class="btn" href="https://github.com/vikasprsd7" target="_blank" rel="noopener">GitHub Profile ↗</a>
+      <button class="btn" onclick="openChat()">Ask AI Assistant</button>
+    </div>
+    <div class="contact-mini">
+      <a href="mailto:avikasprsd@gmail.com">✉ avikasprsd@gmail.com</a>
+      <a href="tel:+919319340921">☎ +91-9319340921</a>
+      <a href="https://www.linkedin.com/in/vikasprsd7" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/vikasprsd7" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+ 
+  <div class="console">
+    <div class="console-head">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="console-title">query — fintech_analyst_profile.sql</div>
+    </div>
+    <div class="console-body" id="console-body"></div>
+  </div>
+</section>
+
+<div class="kpi-strip">
+  <div class="kpi-card">
+    <div class="kpi-val">15/15 & 8/8</div>
+    <div class="kpi-lbl">Burner Accounts & Velocity Clusters Caught (Paytm SQL)</div>
+  </div>
+  <div class="kpi-card k-teal">
+    <div class="kpi-val">0.91 AUC</div>
+    <div class="kpi-lbl">On-Chain AML Random Forest (43K Txns, 27 Features)</div>
+  </div>
+  <div class="kpi-card k-amber">
+    <div class="kpi-val">83% Prec.</div>
+    <div class="kpi-lbl">Credit Card Fraud SMOTE Pipeline (Only 15 False Alarms)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-val">500,000</div>
+    <div class="kpi-lbl">PyTorch GBM Portfolio Scenarios Simulated</div>
+  </div>
+</div>
+ 
+<section id="intro" class="wrap tight">
+  <div class="section-head">
+    <h2>Interactive Decisioning Walkthrough</h2>
+    <div class="section-index">model trade-offs in action</div>
+  </div>
+  <div class="video-panel">
+    <div class="console-head">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <div class="console-title">decision_engine_simulator.py — Interactive Capstone Walkthrough</div>
+      </div>
+      <div class="console-title">Select a workflow below</div>
+    </div>
+    <div class="pitch-stage">
+      <div class="pitch-tabs">
+        <button class="pitch-tab active" onclick="switchPitch('bnpl', this)">01 · BNPL Credit & Pricing Tiers</button>
+        <button class="pitch-tab" onclick="switchPitch('aml', this)">02 · On-Chain AML & SHA-256 Ledger</button>
+        <button class="pitch-tab" onclick="switchPitch('fraud', this)">03 · Fraud Precision vs. Customer Friction</button>
+      </div>
+      <div class="pitch-screen" id="pitch-screen">
+        <div>
+          <h3 id="p-title">Leak-Safe BNPL Default Pipeline & 4-Tier Pricing</h3>
+          <p id="p-desc">Rather than treating thin-file borrowers as an automatic decline, I engineered a leak-safe BNPL default pipeline (Logistic Regression ROC-AUC 0.719 vs 0.519 for Decision Tree) feeding a 4-tier pricing schedule, paired with K-Means segmentation and an Isolation Forest that screened 73.3% of seeded fraud.</p>
+          <div class="pitch-metrics">
+            <div class="p-metric"><b id="pm-1">0.719 ROC-AUC</b><span id="ps-1">Leak-Safe Logistic Regression</span></div>
+            <div class="p-metric"><b id="pm-2">8% → 40%</b><span id="ps-2">4-Tier Default Pricing Table</span></div>
+            <div class="p-metric"><b id="pm-3">73.3% Screened</b><span id="ps-3">Isolation Forest Fraud Screen</span></div>
+            <div class="p-metric"><b id="pm-4">Manual Review</b><span id="ps-4">Routing for 40%-Default & Thin-File</span></div>
+          </div>
+        </div>
+        <div class="pitch-code" id="p-code">
+<span class="c-cm"># BNPL Risk Routing & Pricing Policy</span>
+<span class="c-kw">def</span> <span class="c-fn">route_bnpl_application</span>(pd_score, thin_file, iso_anomaly):
+    <span class="c-kw">if</span> iso_anomaly == <span class="c-num">-1</span>:
+        <span class="c-kw">return</span> <span class="c-num">"FRAUD_HOLD"</span>  <span class="c-cm"># 73.3% seeded fraud caught</span>
+    <span class="c-kw">if</span> pd_score >= <span class="c-num">0.40</span> <span class="c-kw">or</span> thin_file:
+        <span class="c-kw">return</span> <span class="c-num">"MANUAL_UNDERWRITING_REVIEW"</span>
+    <span class="c-kw">return</span> <span class="c-fn">assign_pricing_tier</span>(pd_score)  <span class="c-cm"># Tiers 1-3 (8% to 24%)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section id="overview" class="wrap tight">
+  <div class="section-head">
+    <h2>Professional Summary</h2>
+    <div class="section-index">overview</div>
+  </div>
+  <p class="summary-text">
+    <b>FinTech analyst</b> targeting <b>payments-risk, fraud and credit-analytics</b> roles. Built fraud-detection, BNPL credit-risk, AML-monitoring and portfolio-risk projects in <b>Python, SQL and Power BI</b>, with a focus on turning model trade-offs (<b>fraud caught vs. customer friction</b>) into pricing, approval and review decisions.
+  </p>
+</section>
+ 
+<section id="skills" class="wrap">
+  <div class="section-head">
+    <h2>Technical Skills</h2>
+    <div class="section-index">competency_matrix.json</div>
+  </div>
+  <div class="skills-term">
+    <div class="console-head">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="console-title">vikas@fintech-analytics:~$ cat technical_skills.json</div>
+    </div>
+    <div class="skills-body">
+      <div class="skill-row">
+        <span class="skill-key">Programming & Analysis</span>
+        <span class="skill-val">Python (Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, Keras, PyTorch), SQL, Statistical Analysis, Hypothesis Testing</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-key">Databases</span>
+        <span class="skill-val">SQL, MySQL</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-key">Data Visualization & Reporting</span>
+        <span class="skill-val">Power BI, DAX, Looker Studio, Advanced Excel, Pivot Tables</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-key">Tools & Version Control</span>
+        <span class="skill-val">Git, GitHub, Jupyter Notebook, Google Colab</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-key">Core Competencies</span>
+        <span class="skill-val">Data Cleaning & Pipeline Development, Segmentation Analysis (K-Means), KPI Reporting & Dashboarding, Financial & Operational Modelling</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-key">AI/ML & Risk Analytics</span>
+        <span class="skill-val">Credit risk assessment, Fraud detection, Anomaly detection (Isolation Forest), Imbalanced-data modelling (SMOTE)</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-key">Emerging FinTech</span>
+        <span class="skill-val">Blockchain and crypto risk assessment (On-Chain AML, SHA-256 hash chains, Merkle roots)</span>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<section id="projects" class="wrap">
+  <div class="section-head">
+    <h2>Relevant Projects</h2>
+    <div class="section-index">5 repositories · verified on GitHub</div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterProjects('all', this)">All Projects (5)</button>
+    <button class="filter-btn" onclick="filterProjects('fraud', this)">Fraud & AML Risk</button>
+    <button class="filter-btn" onclick="filterProjects('credit', this)">Credit & BNPL Decisioning</button>
+    <button class="filter-btn" onclick="filterProjects('bi', this)">BI & Portfolio Simulation</button>
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
+ 
+    <!-- Project 1: Paytm Capstone -->
+    <div class="card featured-wide" data-cats="fraud credit bi">
+      <div class="card-top">
+        <h3>Paytm FinTech Analytics & AI Platform (BITSoM Capstone)</h3>
+      </div>
+      <div class="tags">
+        <span class="tag t-amber">BITSoM Capstone</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Python</span>
+        <span class="tag">Excel</span>
+        <span class="tag t-purple">scikit-learn</span>
+        <span class="tag t-purple">Isolation Forest & K-Means</span>
+      </div>
+      <ul>
+        <li>Built a single-repository capstone for Paytm's analytics guild across <b>payments fraud, credit risk decisioning and AI-assisted wealth advisory</b>, using fully synthetic, seeded datasets for reproducibility.</li>
+        <li><b>Payments & fraud:</b> 7 SQL fraud queries caught <b>15/15 seeded burner accounts</b> and <b>8/8 velocity-attack clusters</b>; reconciled a 547-row ledger against a 530-row gateway export in pandas and flagged a <b>5.12% chargeback ratio</b> on an <b>85.6% success rate</b>.</li>
+        <li><b>Credit risk:</b> Built a leak-safe BNPL default pipeline with a thin-file flag (<b>Logistic Regression ROC-AUC 0.719 vs 0.519 for Decision Tree</b>) feeding a 4-tier pricing table with default rates rising from <b>8% to 40%</b>; added K-Means segmentation and an Isolation Forest that screened <b>73.3% of seeded fraud</b>.</li>
+        <li><b>Recommendation:</b> Use tier-based pricing, route the 40%-default tier to manual review, and treat the thin-file flag as a routing signal rather than an auto-decline.</li>
+        <li><b>AI advisory:</b> Prototyped a rule-based advisory agent (no trained model) with <b>CAPM/DCF valuation</b> and human-escalation logic; the crypto recommendation is qualitative.</li>
+      </ul>
+      <div class="card-foot">
+        <button class="link-btn" onclick="openLogic('paytm')">View pipeline logic</button>
+        <a class="gh-btn" href="https://github.com/vikasprsd7/FTAI-x-BITSoM--Paytm-FinTech-Analytics-AI-Platform" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </div>
+
+    <!-- Project 2: On-Chain AML -->
+    <div class="card" data-cats="fraud">
+      <div class="card-top">
+        <h3>On-Chain AML & Transaction Monitoring (Synthetic Ledger)</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">SQL</span>
+        <span class="tag">Python</span>
+        <span class="tag t-purple">scikit-learn</span>
+        <span class="tag t-amber">SHA-256 & Merkle Trees</span>
+      </div>
+      <ul>
+        <li>Built a seeded synthetic ledger (<b>43K transactions, 3,000 wallets, 125 illicit</b>) with four AML typologies and legitimate look-alikes; 4 SQL red-flag rules flagged <b>40 of 41 designed target wallets</b> with <b>3 false positives</b>.</li>
+        <li>Engineered <b>27 wallet-level features</b> (burstiness, pass-through speed, neighbour behaviour) and compared Logistic Regression, Decision Tree and Random Forest with SMOTE inside 5-fold CV; <b>Random Forest reached 0.91 test ROC-AUC</b>, catching 14 of 31 illicit wallets with 44 false alarms.</li>
+        <li>Built a <b>SHA-256 hash chain with per-block Merkle roots (870 blocks)</b>: an altered transaction was detected at its block, and a re-mined block at the next link.</li>
+      </ul>
+      <div class="card-limit">
+        <b>Model Limitation:</b> Rules reach only 32% of illicit wallets (mules look ordinary), so graph methods are the next step.
+      </div>
+      <div class="card-foot">
+        <button class="link-btn" onclick="openLogic('aml')">View DS logic</button>
+        <a class="gh-btn" href="https://github.com/vikasprsd7/On-Chain-AML-Transaction-Monitoring" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </div>
+ 
+    <!-- Project 3: Credit Card Fraud Detection -->
+    <div class="card" data-cats="fraud">
+      <div class="card-top">
+        <h3>Credit Card Fraud Detection Model</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag t-purple">scikit-learn</span>
+        <span class="tag t-purple">Keras</span>
+        <span class="tag t-amber">SMOTE & GridSearchCV</span>
+      </div>
+      <ul>
+        <li>Handled severe class imbalance (<b>492 frauds in 284,807 Kaggle transactions, 0.17%</b>) by comparing undersampling with <b>SMOTE applied inside CV folds</b> to prevent leakage; tuned Logistic Regression, KNN, SVC and Decision Tree with GridSearchCV (about <b>93% CV accuracy</b>).</li>
+        <li>Evaluated a <b>Keras network</b> on an untouched test set: undersampling caught about <b>94% of frauds</b> but wrongly flagged about <b>1,550 genuine transactions</b>, while <b>SMOTE gave about 83% precision with only 15 false alarms</b>.</li>
+      </ul>
+      <div class="card-limit">
+        <b>Model Limitations:</b> Anonymised PCA features, single split, fixed 0.5 threshold, only 98 test frauds.
+      </div>
+      <div class="card-foot">
+        <button class="link-btn" onclick="openLogic('ccfraud')">View stats logic</button>
+        <a class="gh-btn" href="https://github.com/vikasprsd7/Credit-Card-Fraud-Detection" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </div>
+ 
+    <!-- Project 4: Financial BI Platform -->
+    <div class="card" data-cats="credit bi">
+      <div class="card-top">
+        <h3>Financial BI Platform: Loan Default & Investment Analytics</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">Power BI</span>
+        <span class="tag">DAX</span>
+        <span class="tag t-amber">Credit Risk Exposure</span>
+      </div>
+      <ul>
+        <li>Designed an executive-ready <b>Power BI dashboard</b> with <b>3 core DAX measures</b>: <b>NPL ratio</b> (Non-Performing Loans), <b>Exposure at Default (EAD)</b>, and <b>Time-Weighted Rate of Return (TWRR)</b>.</li>
+        <li>Delivered leadership a unified single-pane view of credit-risk exposure, loan portfolio health, and investment performance trends.</li>
+      </ul>
+      <div class="card-foot">
+        <button class="link-btn" onclick="openLogic('bi')">Inspect DAX Measures</button>
+        <a class="gh-btn" href="https://github.com/vikasprsd7/BI-Platform-Loan-Default-Investment-Performance" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </div>
+ 
+    <!-- Project 5: Portfolio Optimization -->
+    <div class="card" data-cats="bi">
+      <div class="card-top">
+        <h3>Portfolio Optimization & Risk Simulation Tool</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag t-purple">PyTorch</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+      </div>
+      <ul>
+        <li>Modelled <b>500,000 portfolio scenarios</b> with <b>Geometric Brownian Motion (PyTorch tensors)</b> and compared allocations on risk-adjusted return to give a data-driven basis for capital allocation decisions.</li>
+      </ul>
+      <div class="card-limit">
+        <b>Model Limitation:</b> Constant drift and volatility, so no fat tails or regime shifts.
+      </div>
+      <div class="card-foot">
+        <button class="link-btn" onclick="openLogic('gbm')">Inspect PyTorch GBM Sim</button>
+        <a class="gh-btn" href="https://github.com/vikasprsd7/Portfolio-Optimization-Tool" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<section id="experience" class="wrap">
+  <div class="section-head">
+    <h2>Education & Certifications</h2>
+    <div class="section-index">academic & credentials</div>
+  </div>
+  <div class="timeline">
+    <div class="t-item">
+      <div class="t-date">02/2026 – 09/2026</div>
+      <h3>Executive Certificate in FinTech & AI — BITSoM</h3>
+      <p><b>CGPA: 7.90</b> · Specialized coursework and capstone execution across payments fraud detection, BNPL credit-risk modelling, on-chain AML analytics, and AI-assisted financial decisioning.</p>
+    </div>
+    <div class="t-item">
+      <div class="t-date">2018</div>
+      <h3>B. Tech in Electrical Engineering — Poornima College of Engineering, RTU</h3>
+      <p><b>Aggregate: 70.50%</b> · Built a strong quantitative foundation in engineering mathematics, statistical signal analysis, and algorithmic problem-solving.</p>
+    </div>
+  </div>
+ 
+  <div class="certs-head">Verified Certifications</div>
+  <div class="certs">
+    <div class="cert-chip">Google Data Analytics Professional Certificate (Coursera)</div>
+    <div class="cert-chip">Statistics and Mathematics for Data Science and Analytics (Udemy)</div>
+    <div class="cert-chip">Microsoft Power BI for Business Intelligence (Udemy)</div>
+    <div class="cert-chip">Data Science and Machine Learning (Udemy)</div>
+  </div>
+</section>
+ 
+<footer id="contact">
+  <h2>Let's connect</h2>
+  <p>Targeting Payments-Risk, Fraud Detection, and Credit-Analytics roles where statistical rigor meets clear business decisioning.</p>
+  <div class="footer-links">
+    <a href="mailto:avikasprsd@gmail.com">avikasprsd@gmail.com</a>
+    <a href="tel:+919319340921">+91-9319340921</a>
+    <a href="https://www.linkedin.com/in/vikasprsd7" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://github.com/vikasprsd7" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="https://vikasprsd7.github.io/Portfolio/" target="_blank" rel="noopener">Live Portfolio ↗</a>
+  </div>
+  <div class="foot-note">Vikas Prasad · Bhagalpur, Bihar · Built for GitHub Pages deployment (index.html).</div>
+</footer>
+ 
+<div class="ask-bubble" onclick="openChat()">
+  <div class="ask-icon">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 19V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H8l-4 4z" fill="#FFF"/></svg>
+  </div>
+  <span>Ask about Vikas</span>
+</div>
+ 
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h4 id="modal-title">Terminal</h4>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="term-body" style="display:block;"></div>
+    <div class="modal-body" id="chat-body" style="display:none;"></div>
+    <div class="chat-controls" id="chat-controls" style="display:none;">
+      <button class="chat-btn" onclick="askChat('role', this)">Which domain fits best?</button>
+      <button class="chat-btn" onclick="askChat('stack', this)">Go-to tech stack?</button>
+      <button class="chat-btn" onclick="askChat('strength', this)">Biggest strength?</button>
+      <button class="chat-btn" onclick="askChat('capstone', this)">Paytm Capstone highlights?</button>
+    </div>
+  </div>
+</div>
+ 
+<script>
+// ---------- hero console typing ----------
+const heroLines = [
+  {t:"SELECT name, role, focus_areas, stack", type:"cmd"},
+  {t:"FROM   fintech_analysts", type:"cmd"},
+  {t:"WHERE  name = 'Vikas Prasad';", type:"cmd"},
+  {t:"-- 1 row returned (0.004s)", type:"comment"},
+  {t:"name   : Vikas Prasad (BITSoM FinTech & AI, CGPA 7.90)", type:"res"},
+  {t:"role   : FinTech Analyst — Payments, Fraud & Credit Risk", type:"amber"},
+  {t:"stack  : Python · SQL · Power BI (DAX) · scikit-learn · PyTorch", type:"res"},
+  {t:"focus  : Turning fraud vs. friction trade-offs into decisions", type:"amber"},
+];
+const consoleBody = document.getElementById('console-body');
+let li=0, ci=0;
+function typeConsole(){
+  if(li>=heroLines.length){ consoleBody.innerHTML+='<span class="caret"></span>'; return; }
+  const line=heroLines[li];
+  if(ci===0){
+    const span=document.createElement('div');
+    span.className = line.type==='cmd' ? 'q-line' : line.type==='comment' ? 'q-comment' : line.type==='amber' ? 'q-amber' : 'q-result';
+    span.id='cl-'+li;
+    consoleBody.appendChild(span);
+  }
+  const el=document.getElementById('cl-'+li);
+  if(ci<line.t.length){
+    el.textContent+=line.t.charAt(ci);
+    ci++;
+    setTimeout(typeConsole, line.type==='cmd'?26:12);
+  } else {
+    li++; ci=0;
+    setTimeout(typeConsole, 220);
+  }
+}
+window.addEventListener('DOMContentLoaded', ()=>setTimeout(typeConsole, 400));
+
+// ---------- interactive pitch walkthrough ----------
+const pitchData = {
+  bnpl: {
+    title: "Leak-Safe BNPL Default Pipeline & 4-Tier Pricing",
+    desc: "Rather than treating thin-file borrowers as an automatic decline, I engineered a leak-safe BNPL default pipeline (Logistic Regression ROC-AUC 0.719 vs 0.519 for Decision Tree) feeding a 4-tier pricing schedule, paired with K-Means segmentation and an Isolation Forest that screened 73.3% of seeded fraud.",
+    m1: ["0.719 ROC-AUC", "Leak-Safe Logistic Regression"],
+    m2: ["8% → 40%", "4-Tier Default Pricing Table"],
+    m3: ["73.3% Screened", "Isolation Forest Fraud Screen"],
+    m4: ["Manual Review", "Routing for 40%-Default & Thin-File"],
+    code: `<span class="c-cm"># BNPL Risk Routing & Pricing Policy</span>
+<span class="c-kw">def</span> <span class="c-fn">route_bnpl_application</span>(pd_score, thin_file, iso_anomaly):
+    <span class="c-kw">if</span> iso_anomaly == <span class="c-num">-1</span>:
+        <span class="c-kw">return</span> <span class="c-num">"FRAUD_HOLD"</span>  <span class="c-cm"># 73.3% seeded fraud caught</span>
+    <span class="c-kw">if</span> pd_score >= <span class="c-num">0.40</span> <span class="c-kw">or</span> thin_file:
+        <span class="c-kw">return</span> <span class="c-num">"MANUAL_UNDERWRITING_REVIEW"</span>
+    <span class="c-kw">return</span> <span class="c-fn">assign_pricing_tier</span>(pd_score)  <span class="c-cm"># Tiers 1-3 (8% to 24%)</span>`
+  },
+  aml: {
+    title: "On-Chain AML Typologies & SHA-256 Merkle Integrity",
+    desc: "Built a 43,000-transaction synthetic ledger across 3,000 wallets (125 illicit). Combined 4 SQL red-flag rules (40/41 target wallets caught, 3 false positives) with 27 engineered wallet features in a 5-fold CV SMOTE Random Forest (0.91 test ROC-AUC) and an 870-block SHA-256 hash chain.",
+    m1: ["40 / 41 Caught", "SQL Red-Flag Rules (Only 3 FPs)"],
+    m2: ["0.91 ROC-AUC", "Random Forest + SMOTE (27 Features)"],
+    m3: ["870 Blocks", "SHA-256 Chain + Per-Block Merkle Roots"],
+    m4: ["Next Step: GNNs", "Rules catch 32% overall (mules blend in)"],
+    code: `<span class="c-cm"># Block Tamper & Re-Mine Verification (870 Blocks)</span>
+<span class="c-kw">def</span> <span class="c-fn">verify_ledger_chain</span>(blocks):
+    <span class="c-kw">for</span> i, blk <span class="c-kw">in</span> <span class="c-fn">enumerate</span>(blocks):
+        <span class="c-kw">if</span> blk.merkle_root != <span class="c-fn">compute_merkle</span>(blk.txns):
+            <span class="c-kw">return</span> f<span class="c-num">"TAMPER_AT_BLOCK_{i}"</span>
+        <span class="c-kw">if</span> i > <span class="c-num">0</span> <span class="c-kw">and</span> blk.prev_hash != blocks[i-<span class="c-num">1</span>].hash:
+            <span class="c-kw">return</span> f<span class="c-num">"REMINED_LINK_BROKEN_AT_{i}"</span>`
+  },
+  fraud: {
+    title: "Credit Card Fraud: Balancing Recall vs. False Alarms",
+    desc: "On 284,807 Kaggle transactions (0.17% fraud), undersampling caught ~94% of frauds but wrongly flagged ~1,550 genuine customers. Applying SMOTE strictly inside CV folds with a Keras evaluation achieved ~83% precision with only 15 false alarms—dramatically cutting customer friction.",
+    m1: ["0.17% Fraud", "492 Frauds in 284,807 Transactions"],
+    m2: ["~93% CV Acc.", "GridSearchCV (LR, KNN, SVC, DT)"],
+    m3: ["Only 15 FPs", "SMOTE (~83% Precision on Test Set)"],
+    m4: ["1,550 FPs Avoided", "vs. Naive Undersampling (94% Recall)"],
+    code: `<span class="c-cm"># Leak-Safe Cross-Validation with In-Fold SMOTE</span>
+pipeline = <span class="c-fn">ImbPipeline</span>([
+    (<span class="c-num">'scaler'</span>, <span class="c-fn">StandardScaler</span>()),
+    (<span class="c-num">'smote'</span>,  <span class="c-fn">SMOTE</span>(random_state=<span class="c-num">42</span>)),  <span class="c-cm"># Inside fold only!</span>
+    (<span class="c-num">'clf'</span>,    <span class="c-fn">LogisticRegression</span>())
+])
+<span class="c-cm"># Result: ~83% precision, 15 false alarms vs 1,550</span>`
+  }
+};
+
+function switchPitch(key, btn){
+  document.querySelectorAll('.pitch-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = pitchData[key];
+  document.getElementById('p-title').textContent = d.title;
+  document.getElementById('p-desc').textContent = d.desc;
+  document.getElementById('pm-1').textContent = d.m1[0]; document.getElementById('ps-1').textContent = d.m1[1];
+  document.getElementById('pm-2').textContent = d.m2[0]; document.getElementById('ps-2').textContent = d.m2[1];
+  document.getElementById('pm-3').textContent = d.m3[0]; document.getElementById('ps-3').textContent = d.m3[1];
+  document.getElementById('pm-4').textContent = d.m4[0]; document.getElementById('ps-4').textContent = d.m4[1];
+  document.getElementById('p-code').innerHTML = d.code;
+}
+
+// ---------- project category filter ----------
+function filterProjects(cat, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#projects-grid .card').forEach(card=>{
+    const cats = card.getAttribute('data-cats') || '';
+    if(cat==='all' || cats.includes(cat)){
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+ 
+// ---------- project logic modals ----------
+const logic = {
+  paytm: {title:"paytm_capstone — SQL Fraud, Ledger Recon & BNPL Pricing", lines:[
+    {t:"-- 1. SQL Fraud Queries: Burner Accounts & Velocity Clusters", c:"comment"},
+    {t:"SELECT device_id, COUNT(DISTINCT user_id) AS linked_accounts, COUNT(*) AS txns_10m", c:"cmd"},
+    {t:"FROM paytm_seeded_txns GROUP BY device_id HAVING linked_accounts >= 5;", c:"cmd"},
+    {t:"result: 15/15 burner accounts & 8/8 velocity-attack clusters flagged", c:"res"},
+    {t:"# 2. Gateway vs. Ledger Reconciliation (Pandas)", c:"comment"},
+    {t:"recon = ledger_547.merge(gateway_530, on='txn_id', how='outer', indicator=True)", c:"cmd"},
+    {t:"result: 85.6% success rate | 5.12% chargeback ratio flagged", c:"res"},
+    {t:"# 3. Leak-Safe BNPL Pipeline & Isolation Forest", c:"comment"},
+    {t:"logreg_auc = 0.719  # vs 0.519 Decision Tree | IsoForest screened 73.3% fraud", c:"cmd"},
+    {t:"policy: 4-tier pricing (8%->40% default); route 40%-tier & thin-file to manual review", c:"res"},
+  ]},
+  aml: {title:"onchain_aml — 43K Synthetic Ledger, 27 Features & SHA-256 Chain", lines:[
+    {t:"-- 4 SQL Red-Flag Typology Rules across 3,000 Wallets (125 Illicit)", c:"comment"},
+    {t:"SELECT wallet_id, pass_through_velocity, fan_out_ratio FROM wallet_features", c:"cmd"},
+    {t:"WHERE pass_through_velocity > 0.92 AND hop_latency_sec < 120;", c:"cmd"},
+    {t:"result: 40 of 41 designed target wallets flagged with only 3 false positives", c:"res"},
+    {t:"# 5-Fold CV with SMOTE on 27 Engineered Wallet Features", c:"comment"},
+    {t:"rf_model = RandomForestClassifier().fit(X_train_smote, y_train)", c:"cmd"},
+    {t:"result: 0.91 test ROC-AUC (14/31 illicit caught, 44 false alarms)", c:"res"},
+    {t:"# SHA-256 Hash Chain + Per-Block Merkle Roots (870 Blocks)", c:"comment"},
+    {t:"integrity_check: altered txn detected at block; re-mined block caught at next link", c:"res"},
+  ]},
+  ccfraud: {title:"credit_card_fraud — In-Fold SMOTE vs. Undersampling (284,807 Txns)", lines:[
+    {t:"# Dataset: 492 frauds in 284,807 Kaggle transactions (0.17% positive class)", c:"comment"},
+    {t:"grid = GridSearchCV(ImbPipeline([('smote', SMOTE()), ('clf', model)]), param_grid, cv=5)", c:"cmd"},
+    {t:"result: ~93% cross-validation accuracy across LR, KNN, SVC, Decision Tree", c:"res"},
+    {t:"# Untouched Test Set Evaluation (Keras & Resampling Trade-off)", c:"comment"},
+    {t:"undersampling -> 94% fraud recall, BUT ~1,550 genuine transactions falsely blocked", c:"cmd"},
+    {t:"smote_pipeline -> ~83% precision with ONLY 15 false alarms (low customer friction)", c:"res"},
+  ]},
+  bi: {title:"powerbi_dax — Loan Default & Investment Analytics Measures", lines:[
+    {t:"// 1. Non-Performing Loan (NPL) Ratio", c:"comment"},
+    {t:"NPL Ratio = DIVIDE(CALCULATE(SUM(Loans[Balance]), Loans[Status] = \"Default_90+\"), SUM(Loans[Balance]), 0)", c:"cmd"},
+    {t:"// 2. Exposure at Default (EAD)", c:"comment"},
+    {t:"EAD = SUMX(Loans, Loans[Drawn_Amount] + Loans[CCF] * (Loans[Limit] - Loans[Drawn_Amount]))", c:"cmd"},
+    {t:"// 3. Time-Weighted Rate of Return (TWRR)", c:"comment"},
+    {t:"TWRR = PRODUCTX(Periods, 1 + Periods[SubPeriod_Return]) - 1", c:"cmd"},
+    {t:"output: Executive single-view of credit-risk exposure, portfolio health & trends", c:"res"},
+  ]},
+  gbm: {title:"pytorch_gbm — 500,000 Monte Carlo Portfolio Scenarios", lines:[
+    {t:"import torch", c:"cmd"},
+    {t:"# Simulate 500,000 Geometric Brownian Motion paths on PyTorch tensors", c:"comment"},
+    {t:"Z = torch.randn(500_000, n_steps, n_assets, device=device)", c:"cmd"},
+    {t:"paths = S0 * torch.exp(torch.cumsum((mu - 0.5 * sigma**2)*dt + sigma*torch.sqrt(dt)*Z, dim=1))", c:"cmd"},
+    {t:"sharpe = (port_return - rf) / port_volatility", c:"cmd"},
+    {t:"result: Data-driven optimal allocation ranked by risk-adjusted return", c:"res"},
+    {t:"limitation: Constant drift & volatility (no fat tails or regime shifts)", c:"comment"},
+  ]},
+};
+
+let termTimer = null;
+function openLogic(key){
+  setView('term');
+  if(termTimer) clearTimeout(termTimer);
+  document.getElementById('modal-title').innerText = logic[key].title;
+  const body=document.getElementById('term-body');
+  body.innerHTML='';
+  let i=0;
+  function next(){
+    if(i>=logic[key].lines.length) return;
+    const line=logic[key].lines[i];
+    const span=document.createElement('span');
+    span.className = line.c==='cmd' ? 'm-cmd' : line.c==='comment' ? 'm-comment' : 'm-res';
+    body.appendChild(span);
+    let ci=0;
+    function type(){
+      if(ci<line.t.length){
+        span.textContent+=line.t.charAt(ci);
+        ci++;
+        body.scrollTop=body.scrollHeight;
+        termTimer = setTimeout(type, line.c==='cmd'?18:9);
+      } else {
+        i++;
+        termTimer = setTimeout(next, 240);
+      }
+    }
+    type();
+  }
+  next();
+}
+ 
+// ---------- recruiter chat ----------
+const chatData = {
+  role: "Vikas is targeting FinTech Analyst roles across Payments-Risk, Fraud Detection, Credit-Analytics, and AML Monitoring. He combines SQL rule-writing and Power BI dashboarding with Python ML pipelines (scikit-learn, Keras, PyTorch).",
+  strength: "Turning model trade-offs (fraud caught vs. customer friction) into concrete pricing, approval, and review decisions. For example, in Credit Card Fraud, his in-fold SMOTE pipeline reached ~83% precision with just 15 false alarms (vs. 1,550 false alarms from undersampling). In BNPL Credit Risk, he used a 4-tier pricing schedule (8% to 40%) and routed thin-file borrowers to manual review rather than auto-declining them.",
+  stack: "Python (Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, Keras, PyTorch), SQL & MySQL, Power BI (DAX), Looker Studio, Advanced Excel, Git/GitHub, and SHA-256/Merkle tree verification.",
+  capstone: "For his BITSoM Capstone (Paytm FinTech Analytics & AI Platform), he built a single-repo solution across 3 pillars: (1) 7 SQL queries catching 15/15 burner accounts & 8/8 velocity clusters + pandas gateway reconciliation (5.12% chargeback ratio), (2) a leak-safe BNPL default model (0.719 ROC-AUC) + Isolation Forest (73.3% fraud screened), and (3) a rule-based CAPM/DCF wealth advisory prototype."
+};
+function openChat(){
+  setView('chat');
+  document.getElementById('modal-title').innerText='Ask about Vikas — FinTech & Risk Analytics';
+  const body=document.getElementById('chat-body');
+  if(body.innerHTML.trim()==='') body.innerHTML='<span class="chat-bot">Hi! Pick a question below to explore how Vikas turns fraud, credit-risk, and AML models into clear business decisions.</span>';
+}
+let chatTyping=false;
+function askChat(key, btnEl){
+  if(chatTyping) return; chatTyping=true;
+  const btnLabel = btnEl ? btnEl.innerText : key;
+  const body=document.getElementById('chat-body');
+  const u=document.createElement('span'); u.className='chat-user'; u.textContent='> '+btnLabel;
+  body.appendChild(u);
+  const b=document.createElement('span'); b.className='chat-bot'; body.appendChild(b);
+  const txt=chatData[key]; let i=0;
+  function type(){
+    if(i<txt.length){ b.textContent+=txt.charAt(i); i++; body.scrollTop=body.scrollHeight; setTimeout(type,12); }
+    else chatTyping=false;
+  }
+  setTimeout(type,200);
+}
+ 
+function setView(view){
+  document.getElementById('modal').classList.add('active');
+  document.getElementById('term-body').style.display = view==='term' ? 'block':'none';
+  document.getElementById('chat-body').style.display = view==='chat' ? 'block':'none';
+  document.getElementById('chat-controls').style.display = view==='chat' ? 'flex':'none';
+  if(view==='term') document.getElementById('term-body').innerHTML='';
+}
+function closeModal(){
+  if(termTimer) clearTimeout(termTimer);
+  document.getElementById('modal').classList.remove('active');
+  chatTyping=false;
+}
+window.onclick=(e)=>{ if(e.target===document.getElementById('modal')) closeModal(); };
+</script>
+</body>
+</html>
